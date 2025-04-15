@@ -81,6 +81,50 @@ movl $1, %eax; return 1
 
 
 
+# Observations for addmatsSubr.c and addmatsSubr.s
+# Parameters
+In the C code, parameters are declared as void addMatracies(int *result, int *mat1, int *mat2).
+In the assembly, the parameters are passed like
+movq %rcx, 16(%rbp); result
+movq %rdx, 24(%rbp); mat1
+movq %r8, 32(%rbp); mat2
+
+# For Loop
+In the C code, simple for loop declaration for(int i=0; i<ARRAY_SIZE; i++).
+In the assembly,
+movl $0, -4(%rbp); i = 0
+addl $1, -4(%rbp); i++
+cmpl $4, -4(%rbp); compare i with 4
+jle .L3; continue if i <= 4
+
+
+# Result/Addition
+In the C code, adds i from matrix1 and matrix2 then stores in result[i] (result[i] = mat1[i]+mat2[i]).
+In the assembly,
+movl (%rax), %ecx; mat1[i]
+movl (%rax), %edx; mat2[i]
+addl %ecx, %edx; mat1[i] + mat2[i]
+movl %edx, (%rax); result[i] = sum
+
+# Function Call
+In the C code, calls addMatracies(result, matrix1, matrix2).
+In the assembly,
+call addMatracies
+
+# Return Call
+In the C code, returns DEFAULT_RETURN_VALUE.
+In the assembly,
+movl $1, %eax; return 1
+
+
+
+
+
+
+
+
+
+
 
 
 
