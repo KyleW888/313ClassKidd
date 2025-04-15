@@ -1,9 +1,9 @@
-# Observations for addmatsSimple.c and addmats.cpp
+# Observations for addmatsSimple.c and addmatsSimple.s
 ## Array Declarations
 
 In the C code, you define arrays via int result[5], int matrix1[5] = {1}, and int matrix2[5] = {2}.
 In the assembly, the arrays are set up using memory storage instructions (e.g., movl $1, -64(%rbp) for matrix1[0] = 1, movl $2, -96(%rbp) for matrix2[0] = 2). 
-individual elements are accessed via like -64(%rbp) and -96(%rbp).
+In the assembly, each array element is accessed by adding an offset to the base pointer %rbp. For matrix1[0], the offset is -64, and for matrix2[0], the offset is -96.
 
 ## Loop
 In the C code, you run a for loop(for(int i = 0; i < ARRAY_SIZE; i++)). i is declared as 0, how long to loop, and the increment size are all in the for loop. In the for loop it adds the indexes from matrix 1 and 2. The sum is stored in
@@ -15,3 +15,79 @@ addl	$1, -4(%rbp); Increments the loop index i
 cmpl	$4, -4(%rbp); Compare loop index to ARRAY_SIZE-1 (i < 5)
 jle	.L3; If i <= 4, repeat loop
 The result is then stored back in the result[i] array, at -32(%rbp,%rax,4).
+
+
+
+
+
+
+
+# Observations for addmats.cpp and addmats.s
+## Constructor
+In the C++ code, the constructor initializes the array_size member with the value of userArraySize. 
+In the assembly,
+movq %rcx, 16(%rbp); Stores userArraySize (from %rcx) into array_size (at 16(%rbp))
+movl %edx, 24(%rbp); Stores array_size in memory at 24(%rbp)
+
+## addMatracies Function
+# Parameters
+In the C++ code, parameters are declared as void addMatracies(int *result, int *mat1, int *mat2).
+In the assembly, the parameters are passed like
+movq %rcx, 16(%rbp); result
+movq %rdx, 24(%rbp); mat1
+movq %r8, 32(%rbp); mat2
+
+# For Loop
+In the C++ code, simple for loop declaration, for(int i=0; i<array_size; i++).
+In the assembly, 
+movl $0, -4(%rbp); i = 0
+addl $1, -4(%rbp); i++
+cmpl $4, -4(%rbp); Compare i with array_size-1
+jle .L4;            Loop continues if i <= 4
+
+# Result/Addition
+In the C++ code, adds i from matrix 1 and 2 then stores in result[i] (result[i] = mat1[i]+mat2[i]).
+In the assembly, 
+movl (%rax), %ecx; mat1[i]
+movl (%rdx), %edx; mat2[i]
+addl %ecx, %edx;  mat1[i] + mat2[i]
+movl %edx, (%rax); result[i] = mat1[i] + mat2[i]
+
+## Main
+# Variable declaration
+In the C++ code, arrays are declared like int result[ARRAY_SIZE];, int matrix1[ARRAY_SIZE] = {1};, int matrix2[ARRAY_SIZE] = {2}.
+In the assembly,
+movl $1, -64(%rbp); matrix1[0] = 1  
+movl $2, -96(%rbp); matrix2[0] = 2  
+
+# Objects
+In the C++ code, MatrixFunctions funcs(ARRAY_SIZE).
+In the assembly,
+movl $5, %edx; passes ARRAY_SIZE  
+call _ZN15MatrixFunctionsC1Ei; calls constructor  
+
+# Function Call
+In the C++ code, funcs.addMatracies(result, matrix1, matrix2).
+In the assembly, 
+call _ZN15MatrixFunctions12addMatraciesEPiS0_S0_; calls addMatracies 
+
+# Return Call
+In the C++ code, return DEFAULT_RETURN_VALUE.
+In the assembly,
+movl $1, %eax; return 1  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
