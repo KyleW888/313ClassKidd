@@ -70,7 +70,7 @@ Here is each step of the operation to evaluate  D = A * B + C.
    - Multiply (3 * B) by C^T -> multiply(&product, &threeB, &CT);
 
 5. Matrix Addition
-  - Add Matrix A to the result of the multiplication ->add(&D, &A, &product);
+   - Add Matrix A to the result of the multiplication ->add(&D, &A, &product);
 
 Each step, display() was called to determine the correctness of the answer.
 
