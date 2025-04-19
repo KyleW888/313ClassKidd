@@ -44,10 +44,10 @@ Here is each step of the operation to evaluate  D = A * B + C.
    - Transpose Matrix C to get C^T -> Matrix CT = C.transpose();
 
 4. Matrix Multiplication
-  - Multiply (3 * B) by C^T
+   - Multiply (3 * B) by C^T
 
 5. Matrix Addition
-   -Add Matrix A to the result of the multiplication -> Matrix D = A.add(product);
+   - Add Matrix A to the result of the multiplication -> Matrix D = A.add(product);
 
 Each step, display() was called to determine correctness of answer.
 
