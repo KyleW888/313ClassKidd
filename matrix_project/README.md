@@ -24,7 +24,7 @@ A simple matrix library implemented in both C++ and C. Program does basic matrix
 
 ## Test Methodology for C++
 
-### ## TESTING METHODOLOGY
+### TESTING METHODOLOGY
 
 For the C++ implementation, the matrices were hardcoded in main.cpp.
 Here is each step of the operation to evaluate  D = A * B + C. 
