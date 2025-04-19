@@ -23,6 +23,7 @@ A simple matrix library implemented in both C++ and C. Program does basic matrix
 
 ### Build Instructions
 -g++ matrix.cpp main.cpp -o matrix_test
+
 -gcc matrix_c.c main.c -o matrixC
 
 
