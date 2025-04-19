@@ -16,10 +16,11 @@ A simple matrix library implemented in both C++ and C. Program does basic matrix
 - main.cpp: Used to test Matrix functionn/operations.
 
 ### C Implementation:
-- `matrix_c.h`: Header file for the C version of the matrix library.
-- `matrix_c.c`: Implementation of the matrix functions in C.
-- `main_c.c`: Test file for the C version.
-- 
+
+
+##Build Instructions
+-g++ matrix.cpp main.cpp -o matrix_test
+  
 
 ## Test Methodology for C++
 
