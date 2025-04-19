@@ -61,16 +61,16 @@ Here is each step of the operation to evaluate  D = A * B + C.
 1. Matrix A, B, and C were manually created and filled with values.
 
 2. Matrix Scalar Multiplication
-   -Multiply Matrix B by scalar 3 -> scalarMultiply(&threeB, &B, 3);
+   - Multiply Matrix B by scalar 3 -> scalarMultiply(&threeB, &B, 3);
    
 3. Transpose Operation
-   -Transpose Matrix C to get C^T -> transpose(&CT, &C);
+   - Transpose Matrix C to get C^T -> transpose(&CT, &C);
 
 4. Matrix Multiplication
    -Multiply (3 * B) by C^T -> multiply(&product, &threeB, &CT);
 
 5. Matrix Addition
-  -Add Matrix A to the result of the multiplication ->add(&D, &A, &product);
+  - Add Matrix A to the result of the multiplication ->add(&D, &A, &product);
 
 Each step, display() was called to determine the correctness of the answer.
 
