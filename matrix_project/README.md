@@ -67,7 +67,7 @@ Here is each step of the operation to evaluate  D = A * B + C.
    - Transpose Matrix C to get C^T -> transpose(&CT, &C);
 
 4. Matrix Multiplication
-   -Multiply (3 * B) by C^T -> multiply(&product, &threeB, &CT);
+   - Multiply (3 * B) by C^T -> multiply(&product, &threeB, &CT);
 
 5. Matrix Addition
   - Add Matrix A to the result of the multiplication ->add(&D, &A, &product);
