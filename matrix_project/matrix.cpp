@@ -1,7 +1,7 @@
 #include "matrix.h"
 #include <iostream>
+#include <stdexcept>  // Include for std::invalid_argument
 using namespace std;
-
 
 Matrix::Matrix(int r, int c) {
     rows = r;
@@ -18,7 +18,8 @@ Matrix::~Matrix() {
     }
     delete[] data;
 }
-//used for testing and validation 
+
+// Used for testing and validation
 void Matrix::display() const {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
@@ -29,16 +30,19 @@ void Matrix::display() const {
 }
 
 // Matrix addition
-Matrix Matrix::add(const Matrix& other) const {
+Matrix Matrix::add(const Matrix& rhs) const {
+    if (rows != rhs.rows || columns != rhs.columns) {
+        throw std::invalid_argument("Matrices cannot be added");
+    }
+
     Matrix sum(rows, columns);  
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < columns; ++j) {
-            sum.data[i][j] = data[i][j] + other.data[i][j]; 
+            sum.data[i][j] = data[i][j] + rhs.data[i][j]; 
         }
     }
     return sum;  
 }
-
 
 // Scalar multiplication
 Matrix Matrix::scalarMultiply(double scalar) const {
@@ -52,20 +56,25 @@ Matrix Matrix::scalarMultiply(double scalar) const {
     return product;  
 }
 
-Matrix Matrix::multiply(const Matrix& other) const {
-    Matrix product(rows, other.columns);  
-
+// Matrix multiplication
+Matrix Matrix::multiply(const Matrix& rhs) const {
+    if (columns != rhs.rows) {
+        throw std::invalid_argument("Matrices cannot be multiplied");
+    }
+    Matrix product(rows, rhs.columns);  
     for (int i = 0; i < rows; ++i) {
-        for (int j = 0; j < other.columns; ++j) {
+        for (int j = 0; j < rhs.columns; ++j) {
             product.data[i][j] = 0;
             for (int k = 0; k < columns; ++k) {
-                product.data[i][j] += data[i][k] * other.data[k][j];  
+                product.data[i][j] += data[i][k] * rhs.data[k][j];  
             }
         }
     }
 
     return product;  
 }
+
+// Matrix transposition
 Matrix Matrix::transpose() const {
     Matrix transposed(columns, rows);  
     for (int i = 0; i < rows; ++i) {
