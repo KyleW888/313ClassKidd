@@ -18,7 +18,7 @@ A simple matrix library implemented in both C++ and C. Program does basic matrix
 ### C Implementation:
 
 
-##Build Instructions
+### Build Instructions
 -g++ matrix.cpp main.cpp -o matrix_test
   
 
